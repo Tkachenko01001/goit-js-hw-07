@@ -11,6 +11,7 @@ const gallery = galleryItems.map((item) =>
 
 galleryEl.insertAdjacentHTML('afterbegin', gallery);
 
+
 new SimpleLightbox('.gallery a', { 
         
     captionDelay: 250,
