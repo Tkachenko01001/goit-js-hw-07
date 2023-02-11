@@ -18,36 +18,35 @@ const gallery = galleryItems.map((item) => `<div class="gallery__item">
 galleryEl.insertAdjacentHTML('afterbegin', gallery);
 
 const onClickImg = (event) => {
-    
+
     if (event.target.tagName !== 'IMG') {
         return;
-    }
+    };
     
     event.preventDefault();
-};
 
-const onClickModal = (event) => {
-
-const instance = basicLightbox.create (
+    const instance = basicLightbox.create (
     `<img src="${event.target.dataset.source}" width="800" height="600">`,
     
     {
-        onShow: (instance) => {
-            const onTarget = (event) => {
-                if ( event.key === 'Escape') {
-                 instance.close();
-                }
-             }
-             window.addEventListener('keydown', onTarget);
+        onShow: () => {
+            window.addEventListener('keydown', onTarget);
         },
 
         onClose: () => {
-            window.removeEventListener('keydown', onClickModal);
+            window.removeEventListener('keydown', onTarget);
         },
         
     }
-    ).show();
-}
+    );
+
+    const onTarget = (event) => {
+        if ( event.key === 'Escape') {
+         instance.close();
+        };
+     };
+
+     instance.show();
+};
 
 galleryEl.addEventListener('click', onClickImg);
-galleryEl.addEventListener('click', onClickModal);
